@@ -98,6 +98,46 @@
     transparent
   );
 }
+.hero-logo {
+  width: 240px;
+  max-width: 90vw;
+  height: auto;
+  opacity: 0;
+  transform: translateY(30px);
+  animation: fadeInUp 1s ease forwards;
+  animation-delay: 0.2s;
+}
+@media (max-width: 991.98px) {
+  .hero-logo {
+    width: 160px;
+  }
+  .hero-title {
+    font-size: 2.2rem;
+  }
+}
+@media (max-width: 575.98px) {
+  .hero-logo {
+    width: 100px;
+  }
+  .hero-title {
+    font-size: 1.5rem;
+  }
+}
+.hero-title {
+  opacity: 0;
+  transform: translateY(30px);
+  animation: fadeInUp 1s ease forwards;
+  animation-delay: 0.5s;
+  font-size: 3rem;
+  letter-spacing: 2px;
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 
 /* Liste/accordion stilleri */
 .accordion-button {
