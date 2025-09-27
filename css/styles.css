@@ -1,0 +1,130 @@
+:root {
+  --sidebar-width: 320px;
+}
+
+/* Layout */
+#layoutWrapper {
+  padding-top: 56px; /* navbar yüksekliği */
+  min-height: 100vh;
+  position: relative; /* backdrop referansı */
+}
+
+/* Sidebar */
+.sidebar {
+  width: var(--sidebar-width);
+  min-height: calc(100vh - 56px);
+  position: fixed;
+  top: 56px;
+  left: 0;
+  overflow-y: auto;
+  transition: transform 0.25s ease;
+  z-index: 1020;
+  background: #fff;
+  border-right: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+/* Backdrop (mobil ve masaüstü için) */
+.sidebar-backdrop {
+  position: fixed;
+  inset: 56px 0 0 0; /* navbar altında */
+  background: rgba(0, 0, 0, 0.35);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s ease, visibility 0.2s ease;
+  z-index: 1010;
+}
+
+/* --- Mobil davranış --- */
+@media (max-width: 991.98px) {
+  .sidebar {
+    transform: translateX(-100%);
+  }
+  .sidebar.open {
+    transform: translateX(0);
+  }
+
+  /* Mobilde sidebar açılınca backdrop görünür */
+  .sidebar.open ~ .sidebar-backdrop {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+/* --- Masaüstü davranış --- */
+@media (min-width: 992px) {
+  /* Varsayılan: açık */
+  main.flex-grow-1 {
+    margin-left: var(--sidebar-width);
+  }
+  .sidebar {
+    transform: translateX(0);
+  }
+
+  /* Kapalıyken: body sınıfı ile kontrol */
+  body.sidebar-collapsed .sidebar {
+    transform: translateX(-100%);
+  }
+  body.sidebar-collapsed main.flex-grow-1 {
+    margin-left: 0;
+  }
+  body.sidebar-collapsed .sidebar-backdrop {
+    opacity: 0 !important;
+    visibility: hidden !important;
+  }
+}
+
+/* Hero */
+.hero {
+  min-height: 46vh;
+  display: grid;
+  align-items: end;
+  background: #0b0f19;
+}
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background-image: url("../assets/maku-fakulte.jpg"); /* kendi görselinizi ekleyin */
+  background-size: cover;
+  background-position: center;
+  filter: brightness(0.5);
+}
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(11, 15, 25, 0.65),
+    rgba(11, 15, 25, 0.15) 40%,
+    transparent
+  );
+}
+
+/* Liste/accordion stilleri */
+.accordion-button {
+  font-weight: 600;
+}
+.list-group-item {
+  border: 0;
+}
+.list-group-item + .list-group-item {
+  border-top: 1px dashed #eee;
+}
+
+/* Erişilebilirlik */
+button:focus,
+a:focus {
+  outline: 2px dashed #0d6efd !important;
+  outline-offset: 2px;
+}
+
+/* Görsel optimizasyonu */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Sidebar açık/kapalı olduğunda arka plan rengi değişmesin */
+body,
+body.sidebar-collapsed {
+  background-color: #f8f9fa; /* Bootstrap bg-light rengi */
+}
